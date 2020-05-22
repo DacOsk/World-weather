@@ -1,7 +1,14 @@
 # World weather
-  Current weather and forecast for cities worldwide
+  Current weather and forecast for cities worldwide  
 
-## Check current weather
+  This app started as coding challenge in one of my courses on Udemy.  
+  I decided to pimp it up and create something usefull, and learn more in the process.  
+  This is still very much WIP (work in progress), so it can contain errors or change significately in future.  
+  You are welcome to use the code as is or change it to suit your needs.  
+  Drop me a message if you like it, or if you have suggestion to improve it.  
+  Thanks.
+
+## Check current weather and forecast
 
 This is simple app written in html, JavaScript and PHP.  
 Using Openweathermap API for fetching current weather conditions and seven days forecast.
