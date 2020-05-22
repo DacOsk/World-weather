@@ -19,6 +19,7 @@ Navigate your web browser to the folder (eg http://localhost/weather, http://you
 App will ask you to input user name and password for database user.  
 __Important! Database user must have permission to create database and tables on your server.__  
 Input your openweathermap.org API key (app won't work without working api key).  
+*You can get free api key on https://openweathermap.org/api*  
 Click submit.  
 Wait a few minutes (depending on your server) for creation of the database and populating it with data.  
 Database is used to speed up city selection and to send proper data to openweathermap server.  
