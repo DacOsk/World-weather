@@ -1,0 +1,6 @@
+[Credentials]
+user = username
+pass = password
+host = localhost
+database = city_codes
+api-key = YOUR_OPENWEATHERMAP_API_KEY
