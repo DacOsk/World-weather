@@ -27,6 +27,7 @@ input {
     padding: .5rem 1.5rem;
     border-radius: .3rem;
     background-color: #eee;
+    width: 60%;
 }
 
 img {
@@ -71,6 +72,7 @@ input+input {
     color: #eee;
     border: none;
     cursor: pointer;
+    max-width: 10em;
 }
 
 .btn:hover {

@@ -80,7 +80,7 @@ function postData(findCity) {
     ).then(
         data => {
             //console.log(data);
-            responseArea.innerHTML = formatResponse(data).innerHTML;
+            responseArea.appendChild(formatResponse(data));
         }
     );
 }
@@ -95,8 +95,9 @@ function cleanInput(input) {
 
 function formatResponse(obj) {
     //console.log(obj);
-    let layout = document.createElement('div');
-    responseArea.classList.add('flex-row');
+    let layout = document.createElement("div");
+    layout.textContent = ' ';
+    layout.classList.add('flex-row');
     layoutText = document.createElement("p");
     layoutText.innerHTML = `<strong>${city.value}</strong><br>
     Current temperature: ${obj.current.temp}°C<br>
