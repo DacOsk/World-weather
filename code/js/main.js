@@ -95,20 +95,29 @@ function cleanInput(input) {
 
 function formatResponse(obj) {
     //console.log(obj);
+    const cityName = city.value;
+    const currentTemp = obj.current.temp;
+    const currentWeatherDescription = obj.current.weather[0].description;
+    const currentTempMin = Math.floor(obj.daily[0].temp.min);
+    const currentTempMax = Math.floor(obj.daily[0].temp.max);
+    const currentWeather = obj.daily[0].weather[0].main;
+    const currentPressure = obj.daily[0].pressure;
+    const currentIcon = obj.current.weather[0].icon;
+
     let layout = document.createElement("div");
     layout.textContent = ' ';
     layout.classList.add('flex-row');
     layoutText = document.createElement("p");
-    layoutText.innerHTML = `<strong>${city.value}</strong><br>
-    Current temperature: ${obj.current.temp}°C<br>
-    Current weather: ${obj.current.weather[0].description}<br>
+    layoutText.innerHTML = `<strong>${cityName}</strong><br>
+    Current temperature: ${currentTemp}°C<br>
+    Current weather: ${currentWeatherDescription}<br>
     Forecast:<br>
-    Temperature: ${Math.floor(obj.daily[0].temp.min)} - ${Math.floor(obj.daily[0].temp.max)}°C<br>
-    Weather: ${obj.daily[0].weather[0].main}, Air pressure: ${obj.daily[0].pressure} hPa`;
+    Temperature: ${currentTempMin} - ${currentTempMax}°C<br>
+    Weather: ${currentWeather}, Air pressure: ${currentPressure} hPa`;
     layout.appendChild(layoutText);
     layoutImage = document.createElement("div");
     layoutImage.classList.add('align-center');
-    layoutImage.innerHTML = `<img src="http://openweathermap.org/img/w/${obj.current.weather[0].icon}.png">`;
+    layoutImage.innerHTML = `<img src="http://openweathermap.org/img/w/${currentIcon}.png">`;
     layout.appendChild(layoutImage);
     return layout;
 }
