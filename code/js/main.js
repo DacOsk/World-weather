@@ -5,10 +5,16 @@ const responseArea = document.querySelector('.response');
 const list = document.querySelector('#cities');
 const cityId = document.querySelector('#city-code');
 
+/**
+ * Prevent form from reloading page
+ */
 form.addEventListener('submit', e => {
     e.preventDefault();
 });
 
+/**
+ * Populate list of cities from user input
+ */
 city.addEventListener('keyup', () => {
     let numChar = city.value.length;
     if (numChar >= 3) {
@@ -36,6 +42,9 @@ city.addEventListener('keyup', () => {
     }
 });
 
+/**
+ * Select city from option list
+ */
 city.addEventListener('input', () => {
     let options = list.childNodes;
     options.forEach(option => {
@@ -45,6 +54,9 @@ city.addEventListener('input', () => {
     });
 });
 
+/**
+ * Prepare data for sending
+ */
 submit.addEventListener('click', () => {
     let cityName = cleanInput(city.value);
     if (cityName != "" && cityId.textContent === '') {
@@ -70,8 +82,12 @@ submit.addEventListener('click', () => {
     }
 });
 
+/**
+ * Send json data to server
+ * @param {object} findCity 
+ */
 function postData(findCity) {
-    const sendData = fetch(
+    fetch(
         './script/scrape.php', {
             method: 'POST',
             body: JSON.stringify(findCity)
@@ -81,10 +97,15 @@ function postData(findCity) {
         data => {
             //console.log(data);
             responseArea.appendChild(formatResponse(data));
+            responseArea.appendChild(sevenDaysForecast(data));
         }
     );
 }
 
+/**
+ * User input cleanup and format
+ * @param {string} input 
+ */
 function cleanInput(input) {
     return input
         .trim()
@@ -93,13 +114,16 @@ function cleanInput(input) {
         .replace(/\b\w/g, l => l.toUpperCase());
 }
 
+/**
+ * Current weather display
+ * @param obj = server response object
+ */
 function formatResponse(obj) {
-    //console.log(obj);
     const cityName = city.value;
     const currentTemp = obj.current.temp;
     const currentWeatherDescription = obj.current.weather[0].description;
-    const currentTempMin = Math.floor(obj.daily[0].temp.min);
-    const currentTempMax = Math.floor(obj.daily[0].temp.max);
+    const currentTempMin = roundTemp(obj.daily[0].temp.min);
+    const currentTempMax = roundTemp(obj.daily[0].temp.max);
     const currentWeather = obj.daily[0].weather[0].main;
     const currentPressure = obj.daily[0].pressure;
     const currentIcon = obj.current.weather[0].icon;
@@ -107,7 +131,7 @@ function formatResponse(obj) {
     let layout = document.createElement("div");
     layout.textContent = ' ';
     layout.classList.add('flex-row');
-    layoutText = document.createElement("p");
+    let layoutText = document.createElement("p");
     layoutText.innerHTML = `<strong>${cityName}</strong><br>
     Current temperature: ${currentTemp}°C<br>
     Current weather: ${currentWeatherDescription}<br>
@@ -115,9 +139,44 @@ function formatResponse(obj) {
     Temperature: ${currentTempMin} - ${currentTempMax}°C<br>
     Weather: ${currentWeather}, Air pressure: ${currentPressure} hPa`;
     layout.appendChild(layoutText);
-    layoutImage = document.createElement("div");
+    let layoutImage = document.createElement("div");
     layoutImage.classList.add('align-center');
     layoutImage.innerHTML = `<img src="http://openweathermap.org/img/w/${currentIcon}.png">`;
     layout.appendChild(layoutImage);
     return layout;
+}
+
+/**
+ * Seven days forecast bar format
+ * @param obj = server response object
+ */
+function sevenDaysForecast(obj) {
+    const forecast = [];
+    for (let i = 1; i <= 7; i++) {
+        forecast.push({
+            min: roundTemp(obj.daily[i].temp.min),
+            max: roundTemp(obj.daily[i].temp.max),
+            icon: obj.daily[i].weather[0].icon,
+            weather: obj.daily[i].weather[0].description
+        });
+    }
+    let forecastBar = document.createElement("div");
+    forecastBar.textContent = ' ';
+    forecastBar.classList.add('flex-row');
+    forecast.forEach(day => {
+        let barItem = document.createElement("div");
+        barItem.classList.add('flex-col');
+        barItem.innerHTML = `<div><img src="http://openweathermap.org/img/w/${day.icon}.png"></div>
+        <p>Weather: ${day.weather}</p>
+        <p>Temperature: ${day.min} - ${day.max}°C</p>`;
+        forecastBar.appendChild(barItem);
+    });
+    return forecastBar;
+}
+
+/**
+ * Round temperature to whole number
+ */
+function roundTemp(temp) {
+    return Math.round(temp);
 }
