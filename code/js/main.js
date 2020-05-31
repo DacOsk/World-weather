@@ -167,7 +167,7 @@ function sevenDaysForecast(obj) {
         let barItem = document.createElement("div");
         barItem.classList.add('flex-col', 'bar-item');
         barItem.innerHTML = `<div><img src="http://openweathermap.org/img/w/${day.icon}.png"></div>
-        <p></p>${day.weather}</p>
+        <p>${day.weather}</p>
         <p>${day.min} - ${day.max}°C</p>`;
         forecastBar.appendChild(barItem);
     });

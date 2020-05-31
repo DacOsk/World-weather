@@ -118,4 +118,9 @@ input+input {
     border-radius: .3rem;
     background-color: #eee;
     padding: .5em;
+    max-height: 100px;
+}
+
+.bar-item p {
+    margin: .1rem auto;
 }
