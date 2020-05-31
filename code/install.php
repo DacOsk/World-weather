@@ -24,7 +24,7 @@ $user_name = $pass = $file_contents = "";
                 <input name="username" id="username" placeholder="DB user name">
                 <label for="password" class="invisible"><small>database password</small></label>
                 <input type="password" name="password" id="password" placeholder="DB password">
-                <label for="api-key" class="inv"><small>Input openweathermap API key</small></label>
+                <label for="api-key" class="invisible"><small>Input openweathermap API key</small></label>
                 <input type="text" name="api-key" id="api-key" placeholder="Openweathermap API key" size="">
                 <input type="submit" value="Submit" class="btn" id="submit">
                 <datalist id="cities"></datalist>
