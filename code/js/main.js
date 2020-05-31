@@ -96,6 +96,7 @@ function postData(findCity) {
     ).then(
         data => {
             //console.log(data);
+            responseArea.innerHTML = '';
             responseArea.appendChild(formatResponse(data));
             responseArea.appendChild(sevenDaysForecast(data));
         }
