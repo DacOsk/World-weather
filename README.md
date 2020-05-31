@@ -20,10 +20,10 @@ Requirements:
 + PHP (7 recomended)
 + MySQL or MariaDb server
 
-Copy fies from *code* folder to your web server (eg. public_html/weather/).   
+Copy files from *code* folder to your web server (eg. public_html/weather/).   
 Make sure that your webserver user have write permission on that folder and files.  
 Navigate your web browser to the folder (eg http://localhost/weather, http://your.domain/weather, ...).  
-App will ask you to input user name and password for database user.  
+App will ask you to input server hostname, user name and password for database user (consult your server configuration).  
 __Important! Database user must have permission to create database and tables on your server.__  
 Input your openweathermap.org API key (app won't work without working api key).  
 *You can get free api key on https://openweathermap.org/api*  

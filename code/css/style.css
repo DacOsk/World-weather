@@ -112,3 +112,10 @@ input+input {
     visibility: hidden;
     height: 0;
 }
+
+.bar-item {
+    border: 1px solid #888;
+    border-radius: .3rem;
+    background-color: #eee;
+    padding: .5em;
+}

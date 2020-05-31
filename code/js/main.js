@@ -165,10 +165,10 @@ function sevenDaysForecast(obj) {
     forecastBar.classList.add('flex-row');
     forecast.forEach(day => {
         let barItem = document.createElement("div");
-        barItem.classList.add('flex-col');
+        barItem.classList.add('flex-col', 'bar-item');
         barItem.innerHTML = `<div><img src="http://openweathermap.org/img/w/${day.icon}.png"></div>
-        <p>Weather: ${day.weather}</p>
-        <p>Temperature: ${day.min} - ${day.max}°C</p>`;
+        <p></p>${day.weather}</p>
+        <p>${day.min} - ${day.max}°C</p>`;
         forecastBar.appendChild(barItem);
     });
     return forecastBar;
