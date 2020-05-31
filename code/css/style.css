@@ -118,7 +118,9 @@ input+input {
     border-radius: .3rem;
     background-color: #eee;
     padding: .5em;
-    max-height: 100px;
+    width: 100%;
+    max-height: 200px;
+    font-size: .5rem;
 }
 
 .bar-item p {
