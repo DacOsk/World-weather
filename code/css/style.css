@@ -26,7 +26,7 @@ input {
     display: inline-block;
     padding: .5rem 1.5rem;
     border-radius: .3rem;
-    background-color: #eee;
+    background-color: #aff;
     width: 60%;
 }
 
@@ -50,8 +50,9 @@ img {
 
 .flex-row {
     display: flex;
-    align-items: flex-start;
-    justify-content: space-around;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: stretch;
 }
 
 .align-center {
@@ -93,7 +94,7 @@ input+input {
 }
 
 .response-ok {
-    background-color: #eee;
+    background-color: #aff;
     padding: .5em;
 }
 
@@ -116,7 +117,7 @@ input+input {
 .bar-item {
     border: 1px solid #888;
     border-radius: .3rem;
-    background-color: #eee;
+    background-color: #aff;
     padding: .5em;
     width: 100%;
     max-height: 200px;
@@ -125,4 +126,5 @@ input+input {
 
 .bar-item p {
     margin: .1rem auto;
+    text-align: center;
 }
