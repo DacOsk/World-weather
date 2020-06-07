@@ -95,7 +95,6 @@ function postData(findCity) {
         response => response.json()
     ).then(
         data => {
-            //console.log(data);
             responseArea.innerHTML = '';
             responseArea.appendChild(formatResponse(data));
             responseArea.appendChild(sevenDaysForecast(data));
@@ -121,28 +120,42 @@ function cleanInput(input) {
  */
 function formatResponse(obj) {
     const cityName = city.value;
-    const currentTemp = obj.current.temp;
-    const currentWeatherDescription = obj.current.weather[0].description;
-    const currentTempMin = roundTemp(obj.daily[0].temp.min);
-    const currentTempMax = roundTemp(obj.daily[0].temp.max);
-    const currentWeather = obj.daily[0].weather[0].main;
-    const currentPressure = obj.daily[0].pressure;
-    const currentIcon = obj.current.weather[0].icon;
+    const {
+        current: {
+            temp: tempC,
+            pressure: currentPressure,
+            weather: [{
+                main: currentWeather,
+                description: currentWeatherDescription,
+                icon: currentIcon
+            }]
+        },
+        daily: [{
+            temp: {
+                min: tempMin,
+                max: tempMax
+            }
+        }]
+    } = obj;
+
+    const currentTemp = roundTemp(tempC);
+    const currentTempMin = roundTemp(tempMin);
+    const currentTempMax = roundTemp(tempMax);
 
     let layout = document.createElement("div");
     layout.textContent = ' ';
     layout.classList.add('flex-row');
     let layoutText = document.createElement("p");
-    layoutText.innerHTML = `<strong>${cityName}</strong><br>
-    Current temperature: ${currentTemp}°C<br>
-    Current weather: ${currentWeatherDescription}<br>
+    layoutText.innerHTML = `<span class="city">${cityName}</span><br>
+    <span class="temp">${currentTemp}°C</span><br>
+    <span class="pressure">${currentPressure}hPa</span><br>
+    <span class="weather">${currentWeatherDescription}</span><br><br>
     Forecast:<br>
-    Temperature: ${currentTempMin} - ${currentTempMax}°C<br>
-    Weather: ${currentWeather}, Air pressure: ${currentPressure} hPa`;
+    ${currentWeather} ${currentTempMin} - ${currentTempMax}°C`;
     layout.appendChild(layoutText);
     let layoutImage = document.createElement("div");
     layoutImage.classList.add('align-center');
-    layoutImage.innerHTML = `<img src="http://openweathermap.org/img/w/${currentIcon}.png">`;
+    layoutImage.innerHTML = `<img src="http://openweathermap.org/img/wn/${currentIcon}@2x.png">`;
     layout.appendChild(layoutImage);
     return layout;
 }
@@ -152,27 +165,39 @@ function formatResponse(obj) {
  * @param obj = server response object
  */
 function sevenDaysForecast(obj) {
-    const forecast = [];
-    for (let i = 1; i <= 7; i++) {
-        forecast.push({
-            min: roundTemp(obj.daily[i].temp.min),
-            max: roundTemp(obj.daily[i].temp.max),
-            icon: obj.daily[i].weather[0].icon,
-            weather: obj.daily[i].weather[0].description
-        });
-    }
+    const { daily: [, ...forecast] } = obj;
+
+    let sevenDayForecast = document.createElement("div");
+    sevenDayForecast.textContent = ' ';
     let forecastBar = document.createElement("div");
     forecastBar.textContent = ' ';
     forecastBar.classList.add('flex-row');
+    const forecastTitle = document.createElement("p");
+    forecastTitle.classList.add('forecast-title');
+    forecastTitle.textContent = '7 day forecast:';
+    sevenDayForecast.appendChild(forecastTitle);
+
     forecast.forEach(day => {
+        const {
+            temp: {
+                min: tMin,
+                max: tMax
+            },
+            weather: [{
+                description: weather,
+                icon: icon
+            }]
+        } = day;
         let barItem = document.createElement("div");
         barItem.classList.add('flex-col', 'bar-item');
-        barItem.innerHTML = `<div><img src="http://openweathermap.org/img/w/${day.icon}.png"></div>
-        <p>${day.weather}</p>
-        <p>${day.min} - ${day.max}°C</p>`;
+        barItem.innerHTML = `<div><img src="http://openweathermap.org/img/wn/${icon}@2x.png"></div>
+        <p>${weather}</p>
+        <p>${roundTemp(tMin)} - ${roundTemp(tMax)}°C</p>`;
         forecastBar.appendChild(barItem);
     });
-    return forecastBar;
+
+    sevenDayForecast.appendChild(forecastBar);
+    return sevenDayForecast;
 }
 
 /**
