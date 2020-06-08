@@ -15,9 +15,10 @@ form.addEventListener('submit', e => {
 /**
  * Populate list of cities from user input
  */
-city.addEventListener('keyup', () => {
+city.addEventListener('keyup', e => {
+    const key = e.keyCode;
     let numChar = city.value.length;
-    if (numChar >= 3) {
+    if (numChar >= 3 && key != 13 && key != 38 && key != 40) {
         let cityCheck = {
             city: city.value
         };
@@ -59,7 +60,7 @@ city.addEventListener('input', () => {
  */
 submit.addEventListener('click', () => {
     let cityName = cleanInput(city.value);
-    if (cityName != "" && cityId.textContent === '') {
+    if (cityName != '' && cityId.textContent === '') {
         responseArea.classList.remove("response-err");
         responseArea.classList.add("response-ok");
         let formData = {
