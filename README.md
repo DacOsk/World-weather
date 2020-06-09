@@ -22,7 +22,8 @@ Requirements:
 
 Copy files from *code* folder to your web server (eg. public_html/weather/).   
 Make sure that your webserver user have write permission on that folder and files.  
-Navigate your web browser to the folder (eg http://localhost/weather, http://your.domain/weather, ...).  
+Navigate your web browser to the folder (eg http://localhost/weather, http://your.domain/weather, ...).
+*(Note: If your hosting provider requires manual creation of the database please select database character set utf8mb4)*
 App will ask you to input server hostname, user name and password for database user (consult your server configuration).  
 __Important! Database user must have permission to create database and tables on your server.__  
 Input your openweathermap.org API key (app won't work without working api key).  
