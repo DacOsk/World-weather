@@ -19,8 +19,9 @@ city.addEventListener('keyup', e => {
     const key = e.keyCode;
     let numChar = city.value.length;
     if (numChar >= 3 && key != 13 && key != 38 && key != 40) {
+        const findCityName = cleanInput(city.value);
         let cityCheck = {
-            city: city.value
+            city: findCityName
         };
         fetch('./script/fill-list.php', {
             method: 'POST',
