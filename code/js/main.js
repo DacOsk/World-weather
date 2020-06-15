@@ -186,14 +186,16 @@ function sevenDaysForecast(obj) {
                 max: tMax
             },
             weather: [{
-                description: weather,
+                main: shortWeather,
+                description: detailWeather,
                 icon: icon
             }]
         } = day;
         let barItem = document.createElement("div");
         barItem.classList.add('flex-col', 'bar-item');
+        barItem.setAttribute('title', detailWeather);
         barItem.innerHTML = `<div><img src="http://openweathermap.org/img/wn/${icon}@2x.png"></div>
-        <p>${weather}</p>
+        <p>${shortWeather}</p>
         <p>${roundTemp(tMin)} - ${roundTemp(tMax)}°C</p>`;
         forecastBar.appendChild(barItem);
     });

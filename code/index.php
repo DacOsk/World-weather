@@ -23,7 +23,7 @@ if (file_get_contents("script/dbc.ini") == "") {
 
 <body>
     <div class="container">
-        <h1 class="title">What's the weather?</h1>
+        <h1 class="title">World weather.</h1>
         <p class="subtitle">Enter the name of a city.</p>
 
         <form method="post" id="form">
