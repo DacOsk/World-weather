@@ -38,8 +38,8 @@ img {
 .container {
     width: 80%;
     max-width: 1080px;
-    margin: 2rem auto 0;
-    padding: 4rem 0;
+    margin: 1.5rem auto 0;
+    padding: 2rem 0;
 }
 
 .flex-col {

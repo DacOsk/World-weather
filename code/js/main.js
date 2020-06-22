@@ -143,15 +143,17 @@ function formatResponse(obj) {
     const currentTemp = roundTemp(tempC);
     const currentTempMin = roundTemp(tempMin);
     const currentTempMax = roundTemp(tempMax);
+    const today = new Date();
 
     let layout = document.createElement("div");
     layout.textContent = ' ';
     layout.classList.add('flex-row');
     let layoutText = document.createElement("p");
     layoutText.innerHTML = `<span class="city">${cityName}</span><br>
+    <span>${today.getDate()}.${today.getMonth() + 1}.${today.getFullYear()}.</span><br>
     <span class="temp">${currentTemp}°C</span><br>
     <span class="pressure">${currentPressure}hPa</span><br>
-    <span class="weather">${currentWeatherDescription}</span><br><br>
+    <span class="weather">${currentWeatherDescription}</span><br>
     Forecast:<br>
     ${currentWeather} ${currentTempMin} - ${currentTempMax}°C`;
     layout.appendChild(layoutText);
@@ -168,6 +170,7 @@ function formatResponse(obj) {
  */
 function sevenDaysForecast(obj) {
     const { daily: [, ...forecast] } = obj;
+    let nextDay = 0;
 
     let sevenDayForecast = document.createElement("div");
     sevenDayForecast.textContent = ' ';
@@ -180,6 +183,8 @@ function sevenDaysForecast(obj) {
     sevenDayForecast.appendChild(forecastTitle);
 
     forecast.forEach(day => {
+        let dayDate = new Date();
+        dayDate.setDate(dayDate.getDate() + ++nextDay);
         const {
             temp: {
                 min: tMin,
@@ -194,7 +199,8 @@ function sevenDaysForecast(obj) {
         let barItem = document.createElement("div");
         barItem.classList.add('flex-col', 'bar-item');
         barItem.setAttribute('title', detailWeather);
-        barItem.innerHTML = `<div><img src="http://openweathermap.org/img/wn/${icon}@2x.png"></div>
+        barItem.innerHTML = `<p>${dayDate.getDate()}.${dayDate.getMonth() + 1}.${dayDate.getFullYear()}.</p>
+        <div><img src="http://openweathermap.org/img/wn/${icon}@2x.png"></div>
         <p>${shortWeather}</p>
         <p>${roundTemp(tMin)} - ${roundTemp(tMax)}°C</p>`;
         forecastBar.appendChild(barItem);
