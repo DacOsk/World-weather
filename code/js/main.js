@@ -122,6 +122,7 @@ function cleanInput(input) {
  */
 function formatResponse(obj) {
     const cityName = city.value;
+    //Response object destructuring
     const {
         current: {
             temp: tempC,
