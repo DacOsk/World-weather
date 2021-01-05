@@ -40,4 +40,3 @@ Click on submit button and weather data will be retrieved.
 The database contains more than 200,000 cities worlwide (source openweathermap.org).  
 If your city isn't in the list please select closest bigger city.
 
-#### Working sample on http://www.dario-web.tech/
